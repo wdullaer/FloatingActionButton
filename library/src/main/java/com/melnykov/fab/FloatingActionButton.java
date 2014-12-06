@@ -27,8 +27,8 @@ import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
 
-import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
+//import com.nineoldandroids.view.ViewHelper;
+//import com.nineoldandroids.view.ViewPropertyAnimator;
 
 /**
  * Android Google+ like floating action button which reacts on the attached list view scrolling events.
@@ -360,11 +360,11 @@ public class FloatingActionButton extends ImageButton {
             }
             int translationY = visible ? 0 : height + getMarginBottom();
             if (animate) {
-                ViewPropertyAnimator.animate(this).setInterpolator(mInterpolator)
+                this.animate().setInterpolator(mInterpolator)
                     .setDuration(TRANSLATE_DURATION_MILLIS)
                     .translationY(translationY);
             } else {
-                ViewHelper.setTranslationY(this, translationY);
+                this.setTranslationY(translationY);
             }
         }
     }
