@@ -19,7 +19,7 @@ Android [floating action button] which reacts on scrolling events. Becomes visib
 
 ```groovy
 dependencies {
-    compile 'com.melnykov:floatingactionbutton:1.0.9'
+    compile 'com.melnykov:floatingactionbutton:1.1.0'
 }
 ```
 
@@ -117,6 +117,11 @@ Check the sample project to see how to use custom listeners if you need to track
 
 ### Changelog
 
+**Version 1.1.0:**
++ Do not ignore negative margins on pre-Lollipop;
++ Disable clicks on the FAB when it's hidden on pre-Honeycomb;
++ Some shadow tuning.
+
 **Version 1.0.9:**
 + Support API 7;
 + Fixed extra margins on pre-Lollipop devices;
@@ -168,6 +173,8 @@ Icon | Application
 <img src="https://lh3.ggpht.com/M-AwKN9xIbhoAkHZWEarCasxyNYjJt2gT3HS8ScGYbJWAUi2zSQ2K_tow8lsznB4XhQ=w300-rw" width="48" height="48" /> | [Перезвони мне]
 <img src="https://lh5.ggpht.com/itn5l8TL7g7YJLi-4GlD7Sg4hI-yCZv0NX85S9l5cq8BtDHPYv60S3h3ta75Pjaerg=w300-rw" width="48" height="48" /> | [App Swap]
 <img src="https://lh6.ggpht.com/wzbvTDntUigvCBp-rZj61rhPuAIF0biycsxlOZveKA8zLKpYA9pIdqp4y0h8sYPqiA=w300-rw" width="48" height="48" /> | [QKSMS - Quick Text Messenger]
+<img src="https://lh3.ggpht.com/wWyXUUfu1Ryl0mpLGZC66XZjg5SuKppPSM4rLEMV94aLcQy_3HsxsylAyxadEPOM11c8=w300-rw" width="48" height="48" /> | [Uninstaller - Beta Version]
+<img src="https://lh3.ggpht.com/Rf4wGr902RKyQxBgaw7uBglwMw8JvjKCgDwZWXAH91GOcd1fvBAHo2nT5J-Uvszlsg=w300-rw" width="48" height="48" /> | [Device Control]
 
 ### Links
 
@@ -209,3 +216,5 @@ SOFTWARE.
 [Перезвони мне]:https://play.google.com/store/apps/details?id=com.melnykov.callmeback
 [App Swap]:https://play.google.com/store/apps/details?id=net.ebt.appswitch
 [QKSMS - Quick Text Messenger]:https://play.google.com/store/apps/details?id=com.moez.QKSMS
+[Uninstaller - Beta Version]:https://play.google.com/store/apps/details?id=com.kimcy92.uninstaller
+[Device Control]:https://play.google.com/store/apps/details?id=org.namelessrom.devicecontrol

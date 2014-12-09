@@ -84,26 +84,9 @@ public class FloatingActionButton extends ImageButton {
             mType == TYPE_NORMAL ? R.dimen.fab_size_normal : R.dimen.fab_size_mini);
         if (mShadow && !hasLollipopApi()) {
             size += mShadowSize * 2;
+            setMarginsWithoutShadow();
         }
         setMeasuredDimension(size, size);
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        if (!hasLollipopApi() && !mMarginsSet) {
-            if (getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
-                int leftMargin = layoutParams.leftMargin - mShadowSize;
-                int topMargin = layoutParams.topMargin - mShadowSize;
-                int rightMargin = layoutParams.rightMargin - mShadowSize;
-                int bottomMargin = layoutParams.bottomMargin - mShadowSize;
-                layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-
-                setLayoutParams(layoutParams);
-                mMarginsSet = true;
-            }
-        }
     }
 
     private void init(Context context, AttributeSet attributeSet) {
@@ -187,11 +170,34 @@ public class FloatingActionButton extends ImageButton {
         return getResources().getDimensionPixelSize(id);
     }
 
+    private void setMarginsWithoutShadow() {
+        if (!mMarginsSet) {
+            if (getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
+                int leftMargin = layoutParams.leftMargin - mShadowSize;
+                int topMargin = layoutParams.topMargin - mShadowSize;
+                int rightMargin = layoutParams.rightMargin - mShadowSize;
+                int bottomMargin = layoutParams.bottomMargin - mShadowSize;
+                layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
+                requestLayout();
+                mMarginsSet = true;
+            }
+        }
+    }
+
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     private void setBackgroundCompat(Drawable drawable) {
         if (hasLollipopApi()) {
-            setElevation(mShadow ? getDimension(R.dimen.fab_elevation_lollipop) : 0.0f);
+            float elevation;
+            if (mShadow) {
+                elevation = getElevation() > 0.0f ? getElevation()
+                    : getDimension(R.dimen.fab_elevation_lollipop);
+            } else {
+                elevation = 0.0f;
+            }
+            setElevation(elevation);
             RippleDrawable rippleDrawable = new RippleDrawable(new ColorStateList(new int[][]{{}},
                 new int[]{mColorRipple}), drawable, null);
             setOutlineProvider(new ViewOutlineProvider() {
@@ -366,6 +372,11 @@ public class FloatingActionButton extends ImageButton {
             } else {
                 this.setTranslationY(translationY);
             }
+
+            // On pre-Honeycomb a translated view is still clickable, so we need to disable clicks manually
+            if (!hasHoneycombApi()) {
+                setClickable(visible);
+            }
         }
     }
 
@@ -409,6 +420,10 @@ public class FloatingActionButton extends ImageButton {
 
     private boolean hasJellyBeanApi() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
+
+    private boolean hasHoneycombApi() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
 
     private class AbsListViewScrollDetectorImpl extends AbsListViewScrollDetector {
