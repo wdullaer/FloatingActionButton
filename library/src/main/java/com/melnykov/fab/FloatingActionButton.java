@@ -16,6 +16,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
@@ -27,14 +28,12 @@ import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
 
-//import com.nineoldandroids.view.ViewHelper;
-//import com.nineoldandroids.view.ViewPropertyAnimator;
-
 /**
  * Android Google+ like floating action button which reacts on the attached list view scrolling events.
  *
  * @author Oleksandr Melnykov
  */
+@CoordinatorLayout.DefaultBehavior(android.support.design.widget.FabBehavior.class)
 public class FloatingActionButton extends ImageButton {
     private static final int TRANSLATE_DURATION_MILLIS = 200;
 

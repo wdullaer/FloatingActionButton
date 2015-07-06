@@ -14,13 +14,15 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            resValue "string", "prefs_version", project.VERSION_NAME
         }
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:21.0.2'
-    compile 'com.android.support:recyclerview-v7:21.0.2'
+    compile 'com.android.support:design:22.2.+'
+    compile 'com.android.support:support-annotations:22.2.+'
+    compile 'com.android.support:recyclerview-v7:22.2.+'
     compile 'com.nineoldandroids:library:2.4.0'
 }
 
